@@ -1,0 +1,36 @@
+.p-3 .checkbox-button {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #EAECF1;
+  border-radius: 4px;
+  background: url('./../images/tick.svg') no-repeat center;
+  background-size: 10px;
+}
+
+.p-3 .unchecked-box {
+  background: none;
+}
+
+.p-3 .checkbox-button:active,
+.p-3 .checkbox-button:hover {
+  border-color: #C3C4EF;
+}
+
+.p-3 .checkbox-button label{
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+.p-3 > label[for="checkbox"] {
+  position: relative;
+  bottom: 4px;
+  left: 3px;
+  font-size: 1.2em;
+  color: #67727E;
+}
+
+.p-3 > label[for="checkbox"]:hover,
+.p-3 > label[for="checkbox"]:active {
+  color: #324152;
+}

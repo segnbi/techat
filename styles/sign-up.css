@@ -1,0 +1,19 @@
+.p-3 .add-image-button {
+  font-size: 1.5em;
+  border: 1px solid #67727E;
+  background-color: #F5F6FA;
+}
+
+.p-3 #file-input-label {
+  display: inline-block;
+  color: #67727E;
+  padding: 7px 15px;
+}
+
+.p-3 .add-image-button:active {
+  background-color: #EAECF1;
+}
+
+.p-3 .add-image-button {
+  border-radius: 3px;
+}
