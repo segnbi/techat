@@ -3,6 +3,7 @@ const minus_button_component = document.querySelector("#button-components .minus
 const reply_button_component = document.querySelector("#button-components .reply-button-component");
 const delete_button_component = document.querySelector("#button-components .delete-button-component");
 const edit_button_component = document.querySelector("#button-components .edit-button-component");
+const new_comment_button = document.querySelector(".new-comment-button");
 
 const app = document.getElementById("app");
 const comments_container = document.getElementById("comments-container");
@@ -28,122 +29,171 @@ document.addEventListener("DOMContentLoaded",async () => {
 		state.comments = response_json.comments
 
 		await render_comments(state.comments)
+
 		await render_comment_form(state.current_user)
 
-		// setInterval(update_comments_rendered, 1000)
+		const comment_form = document.querySelector('.comment-form')
+
+		new_comment_button.style.display = 'none'
+
+		window.addEventListener("scroll", () => {
+			if(comment_form.getBoundingClientRect().top > window.innerHeight) {
+				return new_comment_button.style.display = ''
+			}
+
+			return new_comment_button.style.display = 'none'
+		})
+
+		new_comment_button.addEventListener("click", () => {
+			window.scroll({
+				top: window.innerHeight,
+				behavior: "smooth"
+			})
+		})
+
+		setInterval(handle_comments_state, 1000)
 	} catch(error) {
 		console.error(error)
 	}
 });
 
 /**
- * update rendering state
+ * handle comment's states
  */
-async function update_comments_rendered() {
+async function handle_comments_state() {
+	const response = await fetch_api_state()
+
+	if(response.messages) {
+		return console.log(response)
+	}
+
+	await append_state(response.comments)
+
+	await modify_state(response.comments)
+
+	await remove_state(response.comments)
+}
+
+/**
+ * fetch new state from the api
+ */
+async function fetch_api_state() {
 	try {
 		const response = await fetch("http://localhost:8080/comments", {
 			credentials: "include"
 		})
 
-		const response_json = await response.json()
+		const response_body = await response.json()
 	
-		if(response_json.messages) {
-			return console.log(response_json.messages)
-		}
-	
-		for(let i = 0; i < response_json.comments.length; i++) {
-			let comment = state.comments.find(comment => comment.id == response_json.comments[i].id)
-
-			if(!comment) {
-				state.comments.push(response_json.comments[i])
-				await render_comment(response_json.comments[i], comments_container)
-			}
-
-			if(comment) {
-				let comment_index = state.comments.indexOf(comment)
-
-				if(comment.score != response_json.comments[i].score) {
-					state.comments[comment_index].score = response_json.comments[i].score
-
-					const score = document.querySelector(`#comment-${response_json.comments[i].id} .score`)
-					score.textContent = response_json.comments[i].score
-				}
-
-				if(comment.content != response_json.comments[i].content) {
-					state.comments[comment_index].content = response_json.comments[i].content
-
-					const content = document.querySelector(`#comment-${response_json.comments[i].id} .content`)
-					content.textContent = response_json.comments[i].content
-					content.style.display = ''
-				}
-			}
-		}
-	
-		for(let i = 0; i < state.comments.length; i++) {
-			let comment = response_json.comments.find(comment => comment.id == state.comments[i].id)
-
-			if(!comment) {
-				comment = document.getElementById('comment-' + state.comments[i].id)
-				if(comment) {
-					comment.remove()
-					state.comments.splice(i, 1)
-				}
-			}
-		}
-	
-		for(let i = 0; i < response_json.comments.length; i++) {
-			let comment_index = state.comments.findIndex(comment => comment.id == response_json.comments[i].id)
-
-			response_json.comments[i].replies.forEach(server_reply => {
-				let reply = state.comments[comment_index].replies.find(reply => reply.id == server_reply.id)
-				
-				if(!reply) {
-					state.comments[comment_index].replies.push(server_reply)
-					const section = document.getElementById('comment-' + response_json.comments[i].id + '-replies-container')
-					section.appendChild(build_comment_item(server_reply))
-				}
-				
-				if(reply) {
-					let reply_index = state.comments[comment_index].replies.indexOf(reply)
-
-					if(server_reply.score != reply.score) {
-						state.comments[comment_index].replies[reply_index].score = server_reply.score
-
-						const score = document.querySelector(`#comment-${server_reply.id} .score`)
-						score.textContent = server_reply.score
-					}
-
-					if(server_reply.content != reply.content) {
-						state.comments[comment_index].replies[reply_index].content = server_reply.content
-
-						const content = document.querySelector(`#comment-${server_reply.id} .content`)
-						content.textContent = server_reply.content
-						content.style.display = ''
-					}
-				}
-			})
-		}
-	
-		for(let i = 0; i < state.comments.length; i++) {
-			let comment_index = response_json.comments.findIndex(comment => comment.id == state.comments[i].id)
-
-			state.comments[i].replies.forEach(state_reply => {
-				let server_reply = response_json.comments[comment_index].replies.find(reply => reply.id == state_reply.id)
-				
-				if(!server_reply) {
-					let reply_index = state.comments[comment_index].replies.indexOf(state_reply)
-					reply = document.getElementById('comment-' + state.comments[i].replies[reply_index].id)
-
-					if(reply) {
-						reply.remove()
-						state.comments[i].replies.splice(reply_index, 1)
-					}
-				}
-			})
-		}
+		return response_body;
 	} catch(error) {
 		console.error(error)
 	}
+}
+
+/**
+ * update modified comment
+ */
+async function modify_state(fetched_comments) {
+	fetched_comments.forEach(fetched_comment => {
+		let comment = state.comments.find(comment => comment.id == fetched_comment.id)
+
+		if(comment) {
+			let comment_index = state.comments.indexOf(comment)
+
+			if(comment.score != fetched_comment.score) {
+				state.comments[comment_index].score = fetched_comment.score
+				const comment_score = document.querySelector(`#comment-${fetched_comment.id} .score`)
+				comment_score.textContent = fetched_comment.score
+			}
+
+			if(comment.content != fetched_comment.content) {
+				state.comments[comment_index].content = fetched_comment.content
+				const comment_content = document.querySelector(`#comment-${fetched_comment.id} .content`)
+				comment_content.textContent = fetched_comment.content
+				comment_content.style.display = ''
+			}
+			
+			fetched_comment.replies.forEach(fetched_reply => {
+				let reply = state.comments[comment_index].replies.find(reply => reply.id == fetched_reply.id)
+
+				if(reply) {
+					let reply_index = state.comments[comment_index].replies.indexOf(reply)
+					const reply_content = document.querySelector(`#comment-${fetched_reply.id} .content`)
+
+					if(reply.score != fetched_reply.score) {
+						state.comments[comment_index].replies[reply_index].score = fetched_reply.score
+						const reply_score = document.querySelector(`#comment-${fetched_reply.id} .score`)
+						reply_score.textContent = fetched_reply.score
+					}
+
+					if(reply.content != fetched_reply.content) {
+						const text_content = document.createTextNode(` ${fetched_reply.content}`)
+						state.comments[comment_index].replies[reply_index].content = fetched_reply.content
+						reply_content.appendChild(text_content)
+						reply_content.style.display = ''
+					}
+				}
+			})
+		}
+	})
+}
+
+/**
+ * remove deleted comment
+ */
+async function remove_state(fetched_comments) {
+	state.comments.forEach(rendered_comment => {
+		let fetched_comment = fetched_comments.find(fetched_comment => fetched_comment.id == rendered_comment.id)
+
+		if(!fetched_comment) {
+			let rendered_comment_index = state.comments.indexOf(rendered_comment)
+			comment = document.getElementById('comment-' + rendered_comment.id)
+			comment.remove()
+			state.comments.splice(rendered_comment_index, 1)
+		}
+
+		if(fetched_comment) {
+			rendered_comment.replies.forEach(rendered_reply => {
+				let fetched_reply = fetched_comment.replies.find(fetched_reply => fetched_reply.id == rendered_reply.id)
+
+				if(!fetched_reply) {
+					let rendered_reply_index = rendered_comment.replies.indexOf(rendered_reply)
+					reply = document.getElementById('comment-' + rendered_reply.id)
+					reply.remove()
+					rendered_comment.replies.splice(rendered_reply_index, 1)
+				}
+			})
+		}
+	})
+}
+
+/**
+ * add new comment
+ */
+async function append_state(fetched_comments) {
+	fetched_comments.forEach(fetched_comment => {
+		let comment = state.comments.find(comment => comment.id == fetched_comment.id)
+
+		if(!comment) {
+			state.comments.push(fetched_comment)
+			render_comment(fetched_comment, comments_container)
+		}
+
+		if(comment) {
+			let comment_index = state.comments.indexOf(comment)
+
+			fetched_comment.replies.forEach(fetched_reply => {
+				let reply = state.comments[comment_index].replies.find(reply => reply.id == fetched_reply.id)
+
+				if(!reply) {
+					state.comments[comment_index].replies.push(fetched_reply)
+					const replies_container = document.getElementById('comment-' + fetched_comment.id + '-replies-container')
+					render_comment(fetched_reply, replies_container)
+				}
+			})
+		}
+	})
 }
 
 /**
@@ -319,7 +369,7 @@ function build_comment_item(comment) {
 	const action_button_container = document.createElement('div')
 	const reply_button = reply_button_component.cloneNode(true)
 	const delete_button = delete_button_component.cloneNode(true)
-	const edit_form = build_edit_form(comment)
+	const edit_form = build_edit_form(comment, text_content)
 	const edit_button = edit_button_component.cloneNode(true)
 
 	article.setAttribute('class', 'comment-item')
@@ -483,7 +533,7 @@ function date_ago(date) {
 /**
  * build edit form
  */
-function build_edit_form(edited_comment) {
+function build_edit_form(edited_comment, text_content) {
 	const form = document.createElement('form')
 	const textarea = document.createElement('textarea')
 	const button = document.createElement('button')
@@ -504,6 +554,7 @@ function build_edit_form(edited_comment) {
 			return textarea.style.borderColor = '#ED6468'
 		}
 
+		text_content.remove()
 		console.log(response)
 		return form.remove()
 	})
@@ -564,6 +615,8 @@ function build_delete_popup(deleted_comment) {
 				method: 'DELETE',
 				credentials: 'include'
 			})
+
+			response_body = await response.json()
 		} catch(error) {
 			console.error(error)
 		}

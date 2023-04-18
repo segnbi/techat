@@ -17,6 +17,26 @@ article {
 	border-left: 1px solid #eaecf1;
 }
 
+/* new comment button style */
+.new-comment-button {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	border: none;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: #5457b669;
+	box-shadow: 0 0 10px #0000002c;
+}
+
+.new-comment-button svg {
+	fill: #ffffff;
+}
+
+.new-comment-button:active {
+	background-color: #5457b6;
+}
+
 /* delete popup style */
 .delete-popup-container {
 	position: fixed;
@@ -51,6 +71,7 @@ article {
 .delete-popup .content {
 	font-size: 1.5em;
 	color: #67727e;
+	line-height: 1.5;
 }
 
 .delete-popup .footer {
@@ -62,7 +83,7 @@ article {
 .delete-popup button {
 	font-size: 1.5em;
 	text-transform: uppercase;
-	font-family: 'rubikmedium', sans-serif;
+	font-family: "rubikmedium", sans-serif;
 	color: #ffffff;
 	height: 39px;
 	width: 50%;
@@ -387,7 +408,7 @@ article {
 
 	/* comment item style */
 	.comment-item {
-		grid-template-columns: 38px 1fr 1fr;
+		grid-template-columns: 38px 1.5fr 1fr;
 		grid-template-rows: 33px 1fr;
 	}
 
@@ -444,5 +465,16 @@ article {
 	.edit-form button {
 		width: 90px;
 		align-self: flex-end;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	/* new comment button style */
+	.new-comment-button {
+		background-color: #5457b6;
+	}
+
+	.new-comment-button:hover {
+		background-color: #c3c4ef;
 	}
 }
