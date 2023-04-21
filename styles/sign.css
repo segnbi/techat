@@ -24,30 +24,25 @@ h1 {
 	color: #67727e;
 	text-align: center;
 	padding: 20px 0;
-  line-height: 1.4;
+	line-height: 1.4;
 }
 
 .div-2 {
 	display: flex;
-  justify-content: center;
-  gap: 5px;
-  align-items: center;
+	justify-content: center;
+	gap: 5px;
+	align-items: center;
 }
 
 .div-2 a {
 	display: flex;
-	background-color: #67727e;
-  height: 30px;
-  width: 30px;
+	background-color: #67727e62;
+	height: 30px;
+	width: 30px;
 	border-radius: 50px;
 	margin-right: 3px;
-  align-items: center;
-  justify-content: center;
-}
-
-.div-2 a:hover,
-.div-2 a:active {
-	background-color: #324152;
+	align-items: center;
+	justify-content: center;
 }
 
 h2 {
@@ -141,7 +136,7 @@ form input,
 }
 
 .footer-p-a:active {
-  color: #C3C4EF;
+	color: #c3c4ef;
 }
 
 header {
@@ -162,8 +157,8 @@ header {
 @media screen and (min-height: 667px) {
 	body {
 		height: 100vh;
-    display: flex;
-    align-items: center;
+		display: flex;
+		align-items: center;
 	}
 }
 
@@ -210,9 +205,9 @@ header {
 		text-align: left;
 	}
 
-  .div-2 {
-    justify-content: flex-start;
-  }
+	.div-2 {
+		justify-content: flex-start;
+	}
 
 	.p-4 button {
 		width: 30%;

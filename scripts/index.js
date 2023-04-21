@@ -3,7 +3,7 @@ const minus_button_component = document.querySelector("#button-components .minus
 const reply_button_component = document.querySelector("#button-components .reply-button-component");
 const delete_button_component = document.querySelector("#button-components .delete-button-component");
 const edit_button_component = document.querySelector("#button-components .edit-button-component");
-const new_comment_button = document.querySelector(".new-comment-button");
+const new_comment_button = document.querySelector("#button-components .new-comment-button");
 
 const app = document.getElementById("app");
 const comments_container = document.getElementById("comments-container");
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded",async () => {
 		const response_json = await response.json()
 	
 		if(response_json.messages) {
-			return console.log(response_json.messages)
+			return window.location = 'sign-in.html'
 		}
 
 		state.current_user = response_json.current_user
@@ -34,19 +34,19 @@ document.addEventListener("DOMContentLoaded",async () => {
 
 		const comment_form = document.querySelector('.comment-form')
 
-		new_comment_button.style.display = 'none'
-
 		window.addEventListener("scroll", () => {
 			if(comment_form.getBoundingClientRect().top > window.innerHeight) {
-				return new_comment_button.style.display = ''
+				return app.appendChild(new_comment_button)
 			}
 
-			return new_comment_button.style.display = 'none'
+			if(app.contains(new_comment_button)) {
+				return app.removeChild(new_comment_button)
+			}
 		})
 
 		new_comment_button.addEventListener("click", () => {
 			window.scroll({
-				top: window.innerHeight,
+				top: app.getBoundingClientRect().bottom,
 				behavior: "smooth"
 			})
 		})
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded",async () => {
 });
 
 /**
- * handle comment's states
+ * handle comment states
  */
 async function handle_comments_state() {
 	const response = await fetch_api_state()
@@ -92,7 +92,7 @@ async function fetch_api_state() {
 }
 
 /**
- * update modified comment
+ * replace modified comment content
  */
 async function modify_state(fetched_comments) {
 	fetched_comments.forEach(fetched_comment => {
@@ -169,7 +169,7 @@ async function remove_state(fetched_comments) {
 }
 
 /**
- * add new comment
+ * append new comment
  */
 async function append_state(fetched_comments) {
 	fetched_comments.forEach(fetched_comment => {
@@ -422,11 +422,11 @@ function build_comment_item(comment) {
 	})
 
 	plus_button.addEventListener('click', () => {
-		return update_score(comment.id, '+1')
+		return give_score(comment.id, '+1')
 	})
 
 	minus_button.addEventListener('click', () => {
-		return update_score(comment.id, '-1')
+		return give_score(comment.id, '-1')
 	})
 
 	delete_button.addEventListener('click', () => {
@@ -460,9 +460,9 @@ function build_comment_item(comment) {
 }
 
 /**
- * add score
+ * give a score
  */
-async function update_score(comment_id, operation) {
+async function give_score(comment_id, operation) {
 	try {
 		const response = await fetch("http://localhost:8080/comments/" + comment_id + "?score=" + operation, {
 			method: 'PATCH',
@@ -628,7 +628,7 @@ function build_delete_popup(deleted_comment) {
 }
 
 /**
- * send comment
+ * edit comment
  */
 async function edit_comment(form_data, comment_id) {
 	try {

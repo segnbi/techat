@@ -5,7 +5,7 @@ body {
 
 #app {
 	width: 95%;
-	margin: 20px auto;
+	margin: 0 auto;
 }
 
 article {
@@ -17,6 +17,38 @@ article {
 	border-left: 1px solid #eaecf1;
 }
 
+/* header style */
+header {
+	width: 95%;
+	margin: 0 auto;
+	max-width: 650px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 15px 0;
+	border-bottom: 1px solid #eaecf1;
+}
+
+header .home-link {
+	width: 30px;
+	height: 30px;
+}
+
+header .logo {
+	width: 100%;
+}
+
+header .logout-link {
+	font-size: 1.5em;
+	font-family: "rubikmedium", sans-serif;
+	color: #ed6468;
+	text-decoration: underline;
+}
+
+header .logout-link:active {
+	color: #ffb8bb;
+}
+
 /* new comment button style */
 .new-comment-button {
 	position: fixed;
@@ -25,7 +57,7 @@ article {
 	border: none;
 	padding: 10px;
 	border-radius: 5px;
-	background-color: #5457b669;
+	background-color: #5457b691;
 	box-shadow: 0 0 10px #0000002c;
 }
 
@@ -392,12 +424,60 @@ article {
 	background-color: #c3c4ef;
 }
 
+/* footer style */
+
+footer {
+	width: 95%;
+	margin: 0 auto;
+	max-width: 650px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 15px 0;
+	border-top: 1px solid #eaecf1;
+	margin-top: 50px;
+}
+
+footer p {
+	font-size: 1.3em;
+	color: #67727e;
+}
+
+footer strong a {
+	font-weight: 700;
+	color: #324152;
+	text-decoration: underline;
+}
+
+footer strong a:active {
+	color: #67727e;
+}
+
+footer .links-container a {
+	background-color: #67727e62;
+	height: 25px;
+	width: 25px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50px;
+}
+
+footer img {
+	width: 13px;
+}
+
+footer .links-container {
+	display: flex;
+	gap: 8px;
+}
+
 /* ------------------------------------------------------------ */
 
 @media screen and (min-width: 768px) {
 	#app {
 		max-width: 650px;
-		margin: 40px auto;
+		margin: 0 auto;
 	}
 
 	.replies-container {

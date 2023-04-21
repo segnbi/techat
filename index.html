@@ -5,24 +5,37 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="you want to discuss about web technologies, you are in the right place.">
   <link rel="shortcut icon" href="./favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="./styles/font.css">
   <link rel="stylesheet" href="./styles/reset.css">
   <link rel="stylesheet" href="./styles/index.css">
-  <title>Document</title>
+  <title>Home | Tech Chat</title>
 </head>
 
 <body>
-  <div id="app">
-    <div id="comments-container"></div>
-  </div>
+  <header>
+    <a href="#" class="home-link" title="tech chat">
+      <img src="./images/forum-tech-logo.svg" class="logo" alt="tech chat">
+    </a>
+    <a href="./sign-in.html" class="logout-link">logout</a>
+  </header>
 
-  <button class="new-comment-button">
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-      <path fill=""
-        d="M5 8a1 1 0 0 0 2 0V7h1a1 1 0 0 0 0-2H7V4a1 1 0 0 0-2 0v1H4a1 1 0 0 0 0 2h1Zm13-3h-6a1 1 0 0 0 0 2h6a1 1 0 0 1 1 1v9.72l-1.57-1.45a1 1 0 0 0-.68-.27H8a1 1 0 0 1-1-1v-3a1 1 0 0 0-2 0v3a3 3 0 0 0 3 3h8.36l3 2.73A1 1 0 0 0 20 21a1.1 1.1 0 0 0 .4-.08A1 1 0 0 0 21 20V8a3 3 0 0 0-3-3Z" />
-    </svg>
-  </button>
+  <main id="app">
+    <div id="comments-container"></div>
+  </main>
+
+  <footer>
+    <p>©2023 by <strong><a href="#">serignebidev</a></strong></p>
+    <div class="links-container">
+      <a href="#" title="frontend mentor">
+        <img src="./images/frontend-mentor.svg" alt="frontend mentor">
+      </a>
+      <a href="#" title="github">
+        <img src="./images/github.svg" alt="github">
+      </a>
+    </div>
+  </footer>
   <div id="button-components" style="display: none;">
     <button class="plus-button-component">
       <svg class="plus-icon" width="11" height="11" xmlns="http://www.w3.org/2000/svg">
@@ -77,6 +90,13 @@
       <span class="edit-button-text-content">
         Edit
       </span>
+    </button>
+
+    <button class="new-comment-button" title="add new comment">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+        <path fill=""
+          d="M5 8a1 1 0 0 0 2 0V7h1a1 1 0 0 0 0-2H7V4a1 1 0 0 0-2 0v1H4a1 1 0 0 0 0 2h1Zm13-3h-6a1 1 0 0 0 0 2h6a1 1 0 0 1 1 1v9.72l-1.57-1.45a1 1 0 0 0-.68-.27H8a1 1 0 0 1-1-1v-3a1 1 0 0 0-2 0v3a3 3 0 0 0 3 3h8.36l3 2.73A1 1 0 0 0 20 21a1.1 1.1 0 0 0 .4-.08A1 1 0 0 0 21 20V8a3 3 0 0 0-3-3Z" />
+      </svg>
     </button>
   </div>
   <script src="./scripts/index.js"></script>
