@@ -13,7 +13,7 @@ submit_button.addEventListener("click", (e) => {
 
 	const formData = new FormData(form);
 
-	fetch("http://localhost:8080/users", {
+	fetch("http://localhost:8000/users", {
 		method: "POST",
 		body: formData,
 	})

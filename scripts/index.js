@@ -15,7 +15,7 @@ const state = {};
  */
 document.addEventListener("DOMContentLoaded",async () => {
 	try {
-		const response = await fetch("http://localhost:8080/comments", {
+		const response = await fetch("http://localhost:8000/comments", {
 			credentials: "include"
 		})
 
@@ -79,7 +79,7 @@ async function handle_comments_state() {
  */
 async function fetch_api_state() {
 	try {
-		const response = await fetch("http://localhost:8080/comments", {
+		const response = await fetch("http://localhost:8000/comments", {
 			credentials: "include"
 		})
 
@@ -314,7 +314,7 @@ function build_comment_form(button_text_content, replied_comment) {
  */
 async function send_reply(form_data, replied_comment) {
 	try {
-		const response = await fetch("http://localhost:8080/comments?replying-to-comment=" + replied_comment, {
+		const response = await fetch("http://localhost:8000/comments?replying-to-comment=" + replied_comment, {
 			method: 'POST',
 			credentials: "include",
 			body: form_data
@@ -332,7 +332,7 @@ async function send_reply(form_data, replied_comment) {
  */
 async function send_comment(form_data) {
 	try {
-		const response = await fetch("http://localhost:8080/comments", {
+		const response = await fetch("http://localhost:8000/comments", {
 			method: 'POST',
 			credentials: "include",
 			body: form_data
@@ -464,7 +464,7 @@ function build_comment_item(comment) {
  */
 async function give_score(comment_id, operation) {
 	try {
-		const response = await fetch("http://localhost:8080/comments/" + comment_id + "?score=" + operation, {
+		const response = await fetch("http://localhost:8000/comments/" + comment_id + "?score=" + operation, {
 			method: 'PATCH',
 			credentials: 'include'
 		})
@@ -611,7 +611,7 @@ function build_delete_popup(deleted_comment) {
 
 	delete_button.addEventListener('click',async () => {
 		try {
-			const response = await fetch("http://localhost:8080/comments/" + deleted_comment.id, {
+			const response = await fetch("http://localhost:8000/comments/" + deleted_comment.id, {
 				method: 'DELETE',
 				credentials: 'include'
 			})
@@ -632,7 +632,7 @@ function build_delete_popup(deleted_comment) {
  */
 async function edit_comment(form_data, comment_id) {
 	try {
-		const response = await fetch("http://localhost:8080/comments/" + comment_id, {
+		const response = await fetch("http://localhost:8000/comments/" + comment_id, {
 			method: 'PATCH',
 			credentials: "include",
 			headers: {
