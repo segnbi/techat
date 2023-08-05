@@ -7,7 +7,7 @@ The web application includes these features:
 - Messages posting, reading, updating, replying, scoring and deleting
 - Login and logout features
 
-I have built this web application with:
+Built with:
 
 - [Html]()
 - [Css]()
