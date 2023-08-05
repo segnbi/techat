@@ -12,4 +12,4 @@ Built with:
 - [Html](https://en.wikipedia.org/wiki/HTML)
 - [Css](https://en.wikipedia.org/wiki/CSS)
 - [Javascript](https://en.wikipedia.org/wiki/JavaScript)
-- [Techat API]("https://github.com/segnbi/api.techat.git)
+- [Techat API](https://github.com/segnbi/api.techat.git)
