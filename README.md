@@ -1,6 +1,6 @@
 # Techat
 
-Techat is an discussion forum web application centered on technology stuffs.
+Techat is an discussion forum web application centered on web technology stuffs.
 The web application includes these features:
 
 - Account creation
@@ -9,6 +9,7 @@ The web application includes these features:
 
 Built with:
 
-- [Html]()
-- [Css]()
-- [Javascript]()
+- [Html](https://en.wikipedia.org/wiki/HTML)
+- [Css](https://en.wikipedia.org/wiki/CSS)
+- [Javascript](https://en.wikipedia.org/wiki/JavaScript)
+- [Techat API]("https://github.com/segnbi/api.techat.git)
