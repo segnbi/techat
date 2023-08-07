@@ -15,3 +15,6 @@ Built with:
 - [Css](https://en.wikipedia.org/wiki/CSS)
 - [Javascript](https://en.wikipedia.org/wiki/JavaScript)
 - [Techat API](https://github.com/segnbi/api.techat.git)
+
+__Note:__
+This project was a coding challenge from [Frontend Mentor](https://www.youtube.com/watch?v=9dZmMPcaNIs&ab_channel=BenjaminCode). But with some features added.
