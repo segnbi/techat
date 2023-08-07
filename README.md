@@ -17,4 +17,4 @@ Built with:
 - [Techat API](https://github.com/segnbi/api.techat.git)
 
 __Note:__
-This project was a coding challenge from [Frontend Mentor](https://www.youtube.com/watch?v=9dZmMPcaNIs&ab_channel=BenjaminCode). But with some features added.
+This project was a coding challenge from [Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9). But with some features added.
