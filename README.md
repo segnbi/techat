@@ -1,10 +1,12 @@
 # Techat
 
+<img src="techat.gif">
+
 Techat is an discussion forum web application centered on web technology stuffs.
 The web application includes these features:
 
 - Account creation
-- Messages posting, reading, updating, replying, scoring and deleting
+- Messages management (add, edit, delete, reply, score)
 - Login and logout features
 
 Built with:
